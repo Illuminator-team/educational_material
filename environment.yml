@@ -8,3 +8,9 @@ dependencies:
   - pip:
     - illuminator
     - jupyterlab
+    # For testing
+    - pytest
+    - nbclient
+    - nbformat
+    - pandas
+    - numpy

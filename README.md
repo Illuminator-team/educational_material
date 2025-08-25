@@ -73,7 +73,16 @@ It includes tests that verify:
 
 To run the tests:
 
-(TODO)
+```bash
+# Open the repository 
+cd educational_material
+
+# Activate the conda environment
+conda activate illuminator-examples
+
+# Run all the tests
+pytest -v
+```
 
 ## Contribute
 
