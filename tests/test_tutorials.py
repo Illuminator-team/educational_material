@@ -28,7 +28,7 @@ def test_physical_congestion():
     for filename in output_files:
         actual = Path("tutorials/physical_congestion") / filename
         expected = Path("tests/expected_data/physical_congestion") / filename
-        compare_output_files(actual, expected, ["Controller1.dump"])
+        compare_output_files(actual, expected, date_columns=["date"], float_columns=["Controller1.dump"])
 
 
 def test_power_balance():
@@ -68,5 +68,5 @@ def test_power_balance():
     for filename in output_files:
         actual = Path("tutorials/power_balance") / filename
         expected = Path("tests/expected_data/power_balance") / filename
-        compare_output_files(actual, expected, columns)
+        compare_output_files(actual, expected, date_columns=["date"], float_columns=columns)
 

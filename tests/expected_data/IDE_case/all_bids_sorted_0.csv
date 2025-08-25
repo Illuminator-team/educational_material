@@ -1,0 +1,4 @@
+Company,Technology,Capacity (MW),Cost (€/MWh),Availability,Available Capacity (MW),Bid Capacity (MW),Bid Price (€/MWh)
+Company3,Solar,100.0,90.0,1,100.0,100.0,90.0
+Company1,Solar,300.0,104.0,1,300.0,300.0,104.0
+Company2,Solar,250.0,110.0,1,250.0,250.0,110.0

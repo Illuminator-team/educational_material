@@ -1,0 +1,38 @@
+name: Test Examples
+
+# Workflow triggers tell GitHub when to run the workflow:
+# a) when there is a new commit on the main or develop branch
+# b) when a new pull request is opened to merge a branch into main or develop
+on:
+  push:
+    branches: [ "main", "develop"]
+  pull_request:
+    branches: [ "main", "develop"]
+
+# This workflow defines one job: test-examples
+jobs:
+  test-examples:
+    
+    # Use ubuntu-latest runner.
+    # See https://github.com/actions/runner-images for a list of available runners.
+    runs-on: ubuntu-latest
+    
+    steps:
+
+      # Checkout a copy of this repository on the runner
+      # We use the "checkout" GitHub Action
+      # https://github.com/actions/checkout
+      - uses: actions/checkout@v4
+
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          activate-environment: illuminator-examples
+          auto-activate-base: false
+
+      - name: Create conda environment from environment.yml 
+        run: conda env update -n illuminator-examples -f environment.yml
+
+      - name: Run tests
+        shell: bash -l {0}
+        run: |
+          pytest -v

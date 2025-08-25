@@ -9,7 +9,7 @@ models:
 - name: CSV_EV_presence
   type: CSV
   parameters:
-    file_path: './examples/Tutorial4/data/ev_presence.csv'
+    file_path: './data/ev_presence.csv'
     #file_path: './data/ev_presence.csv'
     delimiter: ','
     date_format: 'YYYY-MM-DD HH:mm:ss'
@@ -17,7 +17,7 @@ models:
 - name: CSVload
   type: CSV
   parameters:
-    file_path: './examples/Tutorial4/data/household_power_consumption_15min_complete.csv'
+    file_path: './data/household_power_consumption_15min_complete.csv'
     #file_path: './household_power_consumption_15min_complete.csv'
     delimiter: ','
     date_format: 'YYYY-MM-DD HH:mm:ss'
@@ -27,7 +27,7 @@ models:
 - name: CSV_pv1
   type: CSV
   parameters:
-    file_path: './examples/Tutorial4/data/pv_data_Rotterdam_NL_2007_15min.txt'
+    file_path: './data/pv_data_Rotterdam_NL_2007_15min.txt'
     #file_path: './pv_data_Rotterdam_NL_2007_15min.txt'
     delimiter: ','
     date_format: 'YYYY-MM-DD HH:mm:ss'
@@ -165,7 +165,7 @@ connections:
   time_shifted: True
 
 monitor:
-  file: './examples/Tutorial4/out_CSV.csv'
+  file: './out_Tutorial4.csv'
   #file: './out_CSV.csv'
   items:
     - PV1.pv_gen
