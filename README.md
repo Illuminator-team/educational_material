@@ -26,7 +26,9 @@ conda activate illuminator-examples
 ```
 ### Tutorials
 
-To run the tutorials:
+The tutorials can be run directly in Google Colab — no local installation or repository cloning required. Instructions on running in Google Colab are found [here](https://github.com/Illuminator-team/educational_material/wiki/Running-tutorials-in-Google-Colab).
+
+To run the tutorials from your local computer:
 
 ```bash
 # Open the repository 
