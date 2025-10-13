@@ -139,3 +139,26 @@ def compare_output_files(
             rtol=0,
             atol=tolerance
         ), f"{actual.name}: Float values in '{col}' differ beyond tolerance"
+
+
+def ignore_cache_dirs(dir, files):
+    """
+    Ignore function for shutil.copytree that excludes cache directories
+    commonly created by Python and Jupyter environments.
+
+    Used when copying tutorial or notebook directories to temporary test
+    locations, so the tests run cleanly without unnecessary files.
+
+    Parameters
+    ----------
+    dir : str or Path
+        The directory currently being copied.
+    files : list[str]
+        The list of file and directory names in `dir`.
+
+    Returns
+    -------
+    list[str]
+        Names of entries to be ignored during the copy.
+    """
+    return [name for name in files if name in {"__pycache__", ".ipynb_checkpoints"}]
