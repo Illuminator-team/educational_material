@@ -1,9 +1,11 @@
 import pytest
+import shutil
 from pathlib import Path
 from tests.utils import *
 
 
-def test_tutorial4():
+@pytest.mark.usefixtures("tmp_path")
+def test_tutorial4(tmp_path: Path):
     """
     Test the Tutorial4 Illuminator scenario by verifying its output CSV file.
 
@@ -26,11 +28,17 @@ def test_tutorial4():
         - If file shapes or date columns do not match.
         - If float column values differ beyond allowed tolerance.
     """
+
+    # Copy entire configuration directory (including data folder) into tmp_path/tutorial4
+    config_dir = Path("configurations/tutorial4")
+    running_dir = tmp_path / "tutorial4"
+    shutil.copytree(config_dir, running_dir)
+
     # Run scenario
-    execute_scenario(Path("configurations/tutorial4/Tutorial4.yaml"))
+    execute_scenario(running_dir / "Tutorial4.yaml")
 
     # Check output file
-    actual = Path("configurations/tutorial4/out_Tutorial4.csv")
+    actual = running_dir / "out_Tutorial4.csv"
     expected = Path("tests/expected_data/tutorial4/out_Tutorial4.csv")
     columns = [
         "PV1.pv_gen",
@@ -46,7 +54,8 @@ def test_tutorial4():
     compare_output_files(actual, expected, date_columns=["date"], float_columns=columns)
 
 
-def test_IDEcase():
+@pytest.mark.usefixtures("tmp_path")
+def test_IDEcase(tmp_path: Path):
     """
     Test the IDE_case Illuminator scenario by validating multiple output CSV files.
 
@@ -76,16 +85,21 @@ def test_IDEcase():
         - If CSV shapes, date columns, text columns, or float columns do not match
           the expected reference.
     """
+    # Copy entire configuration directory (including data folder) into tmp_path/IDE_case
+    config_dir = Path("configurations/IDE_case")
+    running_dir = tmp_path / "IDE_case"
+    shutil.copytree(config_dir, running_dir)
+
     # Run scenario
-    execute_scenario(Path("configurations/IDE_case/Tutorial_2_ide_test.yaml"))
+    execute_scenario(running_dir / "Tutorial_2_ide_test.yaml")
 
     # Check Company betascores
-    actual = Path("configurations/IDE_case/justice_agent_results/betascores_4.csv")
+    actual = running_dir / "justice_agent_results/betascores_4.csv"
     expected = Path("tests/expected_data/IDE_case/betascores_4.csv")
     compare_output_files(actual, expected, float_columns=["Company1", "Company2", "Company3"])
 
     # Check out file
-    actual = Path("configurations/IDE_case/out_ide_case_test.csv")
+    actual = running_dir / "out_ide_case_test.csv"
     expected = Path("tests/expected_data/IDE_case/out_ide_case_test.csv")
     compare_output_files(actual, expected, date_columns=["date"],
        float_columns=["Operator1.market_clearing_price", "Operator1.demand", "JusticeAgent1.justice_score"])
@@ -107,7 +121,7 @@ def test_IDEcase():
         "Bid Price (€/MWh)"
     ]
     for filename in bids:
-        actual = Path("configurations/IDE_case/operator_results/") / filename
+        actual = running_dir / "operator_results/" / filename
         expected = Path("tests/expected_data/IDE_case/") / filename
         compare_output_files(actual, expected, 
             text_columns=["Company", "Technology"], float_columns=bidcolumns)
@@ -127,6 +141,6 @@ def test_IDEcase():
         "Profit (€)"
     ]
     for filename in marketresults:
-        actual = Path("configurations/IDE_case/operator_results/") / filename
+        actual = running_dir / "operator_results/" / filename
         expected = Path("tests/expected_data/IDE_case/") / filename     
         compare_output_files(actual, expected, text_columns=["Company"], float_columns=marketcolumns)   
