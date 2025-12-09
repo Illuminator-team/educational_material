@@ -5,9 +5,9 @@ name: Test Examples
 # b) when a new pull request is opened to merge a branch into main or develop
 on:
   push:
-    branches: [ "main", "develop"]
+    branches: [ "main", "dev", "develop"]
   pull_request:
-    branches: [ "main", "develop"]
+    branches: [ "main", "dev", "develop"]
 
 # This workflow defines one job: test-examples
 jobs:
