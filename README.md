@@ -1,6 +1,6 @@
 # Illuminator examples
 
-Welcome! This repository contains a collection of example applications of the [Illuminator](https://github.com/Illuminator-team/Illuminator).
+Hello & welcome! This repository contains a collection of example applications of the [Illuminator](https://github.com/Illuminator-team/Illuminator).
 
 To learn more about the Illuminator, please visit the [website](https://illuminator-team.github.io/Illuminator/). 
 
