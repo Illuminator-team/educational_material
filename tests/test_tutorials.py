@@ -151,7 +151,7 @@ def test_markets(tmp_path: Path):
         "Profit (€)"
     ]
     for filename in marketresults:
-        actual = running_dir / "results_operator/" / filename
+        actual = running_dir / "results_operator" / filename
         expected = Path("tests/expected_data/markets/") / filename     
         compare_output_files(actual, expected, text_columns=["Company"], float_columns=marketcolumns)   
 
