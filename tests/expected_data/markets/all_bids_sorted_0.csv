@@ -1,0 +1,25 @@
+Company,Technology,Capacity (MW),Cost (€/MWh),Availability,Available Capacity (MW),Bid Capacity (MW),Bid Price (€/MWh)
+Company1,Solar,100,40,0.34,34.0,34.0,40
+Company2,Solar,180,42,0.34,61.2,61.2,42
+Company3,Solar,175,45,0.34,59.50000000000001,59.50000000000001,45
+Company4,Coal,600,91,1.0,600.0,900.0,50
+Company4,Wind,250,56,0.55,137.5,200.0,50
+Company4,Solar,100,38,0.34,34.0,200.0,50
+Company3,Wind,200,52,0.55,110.00000000000001,110.00000000000001,52
+Company1,Wind,180,53,0.55,99.00000000000001,99.00000000000001,53
+Company2,Wind,250,55,0.55,137.5,137.5,55
+Company2,Gas (OCGT),150,70,1.0,150.0,150.0,70
+Company4,Gas (CCGT),300,87,1.0,300.0,300.0,70
+Company1,Nuclear,700,70,1.0,700.0,700.0,70
+Company2,Hydro,150,75,1.0,150.0,150.0,75
+Company1,Gas (OCGT),200,75,1.0,200.0,200.0,75
+Company3,Gas (OCGT),200,76,1.0,200.0,200.0,76
+Company3,Hydro,100,78,1.0,100.0,100.0,78
+Company3,Gas (CCGT),550,80,1.0,550.0,550.0,80
+Company2,Gas (CCGT),500,82,1.0,500.0,500.0,82
+Company1,Gas (CCGT),400,85,1.0,400.0,400.0,85
+Company3,Coal,550,90,1.0,550.0,550.0,90
+Company2,Coal,600,92,1.0,600.0,600.0,92
+Company4,Gas (OCGT),400,74,1.0,400.0,400.0,100
+Company1,Oil,300,104,1.0,300.0,300.0,104
+Company4,Oil,100,110,1.0,100.0,100.0,200
