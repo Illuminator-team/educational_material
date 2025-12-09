@@ -11,17 +11,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository
+      # Checkout repository
       - uses: actions/checkout@v4
 
       # Setup Miniconda
       - uses: conda-incubator/setup-miniconda@v3
         with:
           auto-activate-base: false
+          # optional: specify Python version for conda itself
+          python-version: 3.11
 
-      # Create a fresh conda environment from environment.yml
+      # Remove environment if it exists
+      - name: Remove old conda environment
+        run: conda env remove -n illuminator-examples || true
+
+      # Create conda environment from environment.yml
       - name: Create conda environment
-        run: conda env create -n illuminator-examples -f environment.yml --force
+        run: conda env create -n illuminator-examples -f environment.yml
 
       # Activate environment and run tests
       - name: Run tests
