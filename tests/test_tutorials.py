@@ -135,7 +135,7 @@ def test_markets(tmp_path: Path):
         "Bid Price (€/MWh)"
     ]
     for filename in bids:
-        actual = running_dir / "results_operator/" / filename
+        actual = running_dir / "results_operator" / filename
         expected = Path("tests/expected_data/markets/") / filename
         compare_output_files(actual, expected, 
             text_columns=["Company", "Technology"], float_columns=bidcolumns)
