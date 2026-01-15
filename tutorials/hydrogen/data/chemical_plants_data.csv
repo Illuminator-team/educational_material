@@ -1,0 +1,6 @@
+Chemical_plant,Capacity_kilotons_per_year,Power_MW,Cooling_MW,LPS_MW,MPS_MW,HPS_MW,Legacy_technology
+Olefins,878,37.67,138.48,180.85,0,0,CHP
+Ethylene_oxide,293,5.13,15.04,30.07,0,0,CHP
+Ethylbenzene,758,0.3,0.6,0,2.3,41.06,Gas_boiler
+Ethylene_glycol,113,1.06,1.14,0,44.32,0,Gas_boiler
+PET,231,0.67,0.49,0,0,24.49,Gas_boiler
