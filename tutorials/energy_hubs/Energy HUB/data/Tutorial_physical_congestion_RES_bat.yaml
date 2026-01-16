@@ -8,7 +8,7 @@ models:
 - name: CSVload
   type: CSV
   parameters:
-    file_path: 'load_data.txt'
+    file_path: 'data\load_data.txt'
     delimiter: ','
     date_format: 'YYYY-MM-DD HH:mm:ss'
   states:
@@ -16,20 +16,21 @@ models:
 - name: CSV_pv
   type: CSV
   parameters:
-    file_path: 'pv_data_Rotterdam_NL-15min.txt'
+    file_path: 'data\pv_data_Rotterdam_NL-15min.txt'
     delimiter: ','
     date_format: 'YYYY-MM-DD HH:mm:ss'
+
 - name: CSV_wind
   type: CSV
   parameters:
-    file_path: 'winddata_NL.txt'
+    file_path: 'data\winddata_NL.txt'
     delimiter: ','
     date_format: 'YYYY-MM-DD HH:mm:ss'
 
 - name: Grid1
   type: GridConnection
   parameters:
-    connection_capacity: 15 # size of the neighbourhood
+    connection_capacity: 150 # size of the neighbourhood
     tolerance_limit: 0.67 # a load on the connection between 67% and 90% is tolerable but causes a warning
     critical_limit: 0.9 # a load on the connection over 90% of the connection capacity is critical
   inputs:
@@ -41,7 +42,7 @@ models:
 - name: Load1
   type: Load
   parameters:
-    houses: 10  # number of houses that determine the total load demand
+    houses: 100  # number of houses that determine the total load demand
     output_type: 'power'  # type of output for consumption calculation ('energy' or 'power')
   inputs:
     load: 0  # incoming energy or power demand per house (kWh) for each time step (15 minutes)
