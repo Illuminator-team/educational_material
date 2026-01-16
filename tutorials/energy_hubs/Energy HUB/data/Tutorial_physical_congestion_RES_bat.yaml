@@ -58,10 +58,10 @@ models:
     m_efficiency_stc: 0.198
     G_NOCT: 800  # W/m2
     P_STC: 250  # W
-    peak_power: 600  # W
+    peak_power: 60  # W
     m_tilt: 14  # degrees
     m_az: 180  # degrees
-    cap: 20000  # W
+    cap: 100  # W
     output_type: 'power'
   inputs: 
     G_Gh: null 
@@ -186,7 +186,13 @@ connections:
   time_shifted: True
 
 monitor:
-  file: './out_Tutorial_RES_Bat.csv'
+  file: './out_Tutorial_5.csv'
   items:
     - Controller1.dump
+    - Controller1.res_load
+    - Battery1.soc
+    - Controller1.flow2b
+    - PV1.pv_gen
+    - Wind1.wind_gen
+    - Load1.load_dem
     - Grid1.flag_warning
