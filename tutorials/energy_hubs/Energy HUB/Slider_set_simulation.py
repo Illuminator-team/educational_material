@@ -68,29 +68,18 @@ def run_res_simulation(dashboard):
         simulation_RES.set_scenario_param('end_time', times[selected_dataset]['end_time'])
 
         pv_number     = pv_size_slider.value
-        pv_size_kW    = pv_number * 250      # kW
-        n_turbines    = n_t_slider.value
+        pv_size_kW    = pv_number * 0.5  # kW
+        n_turbines    = n_t_slider.value * 2000 # kW
         storage_level = storage_slider.value
 
-        Turbines_on = int_to_vector(n_turbines)
-
-        pv_cap_W = pv_size_kW * 1000
+        Turbines_on = n_turbines
 
         new_settings = {
-            'Wind1':  {'p_rated': Turbines_on[0]*p_rated_turbine},
-            'Wind2':  {'p_rated': Turbines_on[1]*p_rated_turbine},
-            'Wind3':  {'p_rated': Turbines_on[2]*p_rated_turbine},
-            'Wind4':  {'p_rated': Turbines_on[3]*p_rated_turbine},
-            'Wind5':  {'p_rated': Turbines_on[4]*p_rated_turbine},
-            'Wind6':  {'p_rated': Turbines_on[5]*p_rated_turbine},
-            'Wind7':  {'p_rated': Turbines_on[6]*p_rated_turbine},
-            'Wind8':  {'p_rated': Turbines_on[7]*p_rated_turbine},
-            'Wind9':  {'p_rated': Turbines_on[8]*p_rated_turbine},
-            'Wind10': {'p_rated': Turbines_on[9]*p_rated_turbine},
-            'PV1':     {'cap': pv_cap_W},
+            'Wind1':  {'p_rated': n_turbines},
+            'PV1':     {'cap': pv_size_kW},
             'Battery1': {
-                'max_p':      storage_level,
-                'min_p':     -storage_level,
+                'max_p':      storage_level*0.9,
+                'min_p':     -storage_level*0.9,
                 'max_energy': storage_level
             },
             'Controller1': {
