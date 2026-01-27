@@ -223,9 +223,11 @@ def align_dates_and_calculate_co2(
     return result
 
 
-def plot_co2_emissions(result_df, title='CO2 Emissions Over Time'):
+def plot_co2_emissions(result_df, title='CO2 Emissions Over Time', ax=None):
+    
     """
     Plot CO2 emissions only.
+    Supporting both standalone and side-by-side layouts.
     
     Parameters:
     -----------
@@ -237,12 +239,17 @@ def plot_co2_emissions(result_df, title='CO2 Emissions Over Time'):
     if result_df is None or len(result_df) == 0:
         print("No data to plot!")
         return
+ 
+    if result_df is None or len(result_df) == 0:
+        print("No data to plot!")
+        return
     
-    # print("\n" + "="*70)
-    # print("STEP 6: PLOTTING CO2 EMISSIONS")
-    # print("="*70)
-    
-    fig, ax = plt.subplots(figsize=(10, 5))
+    # Handle whether to create a new figure or use an existing axis
+    if ax is None:
+        fig, ax = plt.subplots(figsize=(10, 5))
+        is_standalone = True
+    else:
+        is_standalone = False
     
     # Plot emissions
     ax.plot(result_df.index, result_df['CO2_emissions_kg'], 
@@ -255,17 +262,17 @@ def plot_co2_emissions(result_df, title='CO2 Emissions Over Time'):
     ax.axhline(y=mean_co2, color='orange', linestyle='--', 
                linewidth=2, label=f'Mean: {mean_co2:.2f} kg', alpha=0.8)
     
-    # Formatting
-    ax.set_xlabel('Time', fontsize=13, fontweight='bold')
-    ax.set_ylabel('CO2 Emissions (kg)', fontsize=13, fontweight='bold')
-    ax.set_title(title, fontsize=15, fontweight='bold', pad=20)
+    # Formatting (adjusted font sizes for better side-by-side fit)
+    ax.set_xlabel('Time', fontsize=10, fontweight='bold')
+    ax.set_ylabel('CO2 Emissions (kg)', fontsize=10, fontweight='bold')
+    ax.set_title(title, fontsize=12, fontweight='bold')
     ax.grid(True, alpha=0.3, linestyle='--')
-    ax.legend(loc='best', fontsize=11, framealpha=0.9)
+    ax.legend(loc='best', fontsize=9, framealpha=0.9)
     
-    plt.tight_layout()
-    plt.show()
-    
-    # print("✓ Plot displayed")
+    # Finalize only if not part of a larger subplot
+    if is_standalone:
+        plt.tight_layout()
+        plt.show()
 
 
 # ==============================================================================

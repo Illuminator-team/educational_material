@@ -294,93 +294,57 @@ def calculate_electricity_cost(
     return result
 
 
-def plot_electricity_cost(result_df, title='Electricity Cost Breakdown Over Time'):
+def plot_electricity_cost(result_df, title='Electricity Cost Breakdown', ax=None):
     """
     Plot electricity costs as a stacked area chart showing grid vs renewable costs.
-    
-    Parameters:
-    -----------
-    result_df : pd.DataFrame
-        Results from calculate_electricity_cost()
-    title : str
-        Plot title
+    Includes a mean line for total cost comparison.
     """
     if result_df is None or len(result_df) == 0:
         print("No data to plot!")
         return
     
-    print("\n" + "="*70)
-    print("PLOTTING ELECTRICITY COST BREAKDOWN")
-    print("="*70)
-    
-    fig, ax = plt.subplots(1, 1, figsize=(10, 5))
-    
-    # Check if we have renewable data
+    if ax is None:
+        fig, ax = plt.subplots(1, 1, figsize=(10, 5))
+        is_standalone = True
+    else:
+        is_standalone = False
+
     has_renewables = 'PV_Cost_EUR' in result_df.columns and 'Wind_Cost_EUR' in result_df.columns
     
+    # --- DRAWING SECTION ---
     if has_renewables and (result_df['PV_Cost_EUR'].sum() > 0 or result_df['Wind_Cost_EUR'].sum() > 0):
-        # Stacked area chart with cost breakdown
-        
-        # Prepare data for stacking
         grid_cost = result_df['Grid_Cost_EUR'].fillna(0)
         pv_cost = result_df['PV_Cost_EUR'].fillna(0)
         wind_cost = result_df['Wind_Cost_EUR'].fillna(0)
         
-        # Create stacked area plot
         ax.fill_between(result_df.index, 0, grid_cost, 
-                       label='Grid Cost', alpha=0.7, color='#ff7f0e')
+                        label='Grid Cost', alpha=0.7, color='#ff7f0e')
         ax.fill_between(result_df.index, grid_cost, grid_cost + wind_cost, 
-                       label='Wind Cost (operational)', alpha=0.7, color='#2ca02c')
+                        label='Wind Cost', alpha=0.7, color='#2ca02c')
         ax.fill_between(result_df.index, grid_cost + wind_cost, 
-                       grid_cost + wind_cost + pv_cost, 
-                       label='PV Cost (amortized)', alpha=0.7, color='#1f77b4')
-        
-        # Add total cost line on top
-        total_cost = grid_cost + wind_cost + pv_cost
-        ax.plot(result_df.index, total_cost, 
-               linewidth=2, color='black', label='Total Cost', alpha=0.8, linestyle='--')
-        
-        # Calculate percentages for legend
-        total_grid = grid_cost.sum()
-        total_wind = wind_cost.sum()
-        total_pv = pv_cost.sum()
-        total_all = total_grid + total_wind + total_pv
-        
-        if total_all > 0:
-            grid_pct = (total_grid / total_all) * 100
-            wind_pct = (total_wind / total_all) * 100
-            pv_pct = (total_pv / total_all) * 100
-            
-            # Update legend with percentages
-            handles, labels = ax.get_legend_handles_labels()
-            labels[0] = f'Grid Cost ({grid_pct:.1f}%)'
-            labels[1] = f'Wind Cost ({wind_pct:.1f}%)'
-            labels[2] = f'PV Cost ({pv_pct:.1f}%)'
-            ax.legend(handles, labels, loc='best', fontsize=11, framealpha=0.9)
-        else:
-            ax.legend(loc='best', fontsize=11, framealpha=0.9)
+                        grid_cost + wind_cost + pv_cost, 
+                        label='PV Cost', alpha=0.7, color='#1f77b4')
     else:
-        # Just plot grid cost (no renewables)
-        ax.plot(result_df.index, result_df['Cost_EUR'], 
-                linewidth=1.5, color='#ff7f0e', label='Grid Cost')
-        ax.fill_between(result_df.index, result_df['Cost_EUR'], 
-                         alpha=0.3, color='#ff7f0e')
-        
-        mean_cost = result_df['Cost_EUR'].mean()
-        ax.axhline(y=mean_cost, color='orange', linestyle='--', 
-                   linewidth=2, label=f'Mean: €{mean_cost:.2f}', alpha=0.8)
-        ax.legend(loc='best', fontsize=11, framealpha=0.9)
-    
-    ax.set_xlabel('Time', fontsize=13, fontweight='bold')
-    ax.set_ylabel('Cost (EUR)', fontsize=13, fontweight='bold')
-    ax.set_title(title, fontsize=15, fontweight='bold', pad=20)
+        ax.plot(result_df.index, result_df['Cost_EUR'], color='#ff7f0e', label='Grid Cost')
+        ax.fill_between(result_df.index, result_df['Cost_EUR'], alpha=0.3, color='#ff7f0e')
+
+    # --- MEAN LINE SECTION (ADD THIS HERE) ---
+    mean_val = result_df['Cost_EUR'].mean()
+    ax.axhline(y=mean_val, color='orange', linestyle='--', 
+               linewidth=2, label=f'Mean: €{mean_val:.2f}', alpha=0.8)
+
+    # --- FORMATTING SECTION ---
+    ax.set_xlabel('Time', fontsize=10, fontweight='bold')
+    ax.set_ylabel('Cost (EUR)', fontsize=10, fontweight='bold')
+    ax.set_title(title, fontsize=12, fontweight='bold')
     ax.grid(True, alpha=0.3, linestyle='--')
     
-    plt.tight_layout()
-    plt.show()
+    # Updated legend call to include the mean line
+    ax.legend(loc='best', fontsize=9, framealpha=0.9)
     
-    print("✓ Plot displayed")
-
+    if is_standalone:
+        plt.tight_layout()
+        plt.show()
 
 # ==============================================================================
 # USAGE EXAMPLE
