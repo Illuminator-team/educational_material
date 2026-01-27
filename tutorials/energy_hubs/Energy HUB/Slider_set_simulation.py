@@ -16,63 +16,17 @@ def run_res_simulation(dashboard):
     CONFIG_FILE = 'data\Tutorial_5.yaml'
     simulation_RES = Simulation(CONFIG_FILE)
 
-    # load_files = {
-    #     "Rotterdam": "data\load_data.txt",
-    #     "Netherlands": "nl_entsoe_demand_household_cleaned.csv",
-    # }
-
-    # pv_files = {
-    #     "Rotterdam": "data\pv_data_Rotterdam_NL-15min.txt",
-    #     "Netherlands": "pv_data_Rotterdam_NL-15min_2025.txt",
-    # }
-
-    # wind_files = {
-    #     "Rotterdam": "data\winddata_NL.txt",
-    #     "Netherlands": "winddata_NL_2025.txt",
-    # }
-
-    # times = {
-    #     "Rotterdam": {
-    #         'start_time': '2012-02-01 00:00:00',
-    #         'end_time': '2012-02-01 23:45:00'
-    #     },
-    #     "Netherlands": {
-    #         'start_time': '2025-11-28 00:00:00',
-    #         'end_time': '2025-12-02 23:45:00'
-    #     }
-    # }
-
-    def int_to_vector(n, length=10):
-        return [1]*n + [0]*(length-n)
+    # def int_to_vector(n, length=10):
+    #     return [1]*n + [0]*(length-n)
 
     def apply_ui_to_simulation():
         selected_dataset = dropdown.value
-
-        # simulation_RES.set_model_param(
-        #     model_name='CSVload',
-        #     parameter='file_path',
-        #     value=load_files[selected_dataset]
-        # )
-        # simulation_RES.set_model_param(
-        #     model_name='CSV_pv',
-        #     parameter='file_path',
-        #     value=pv_files[selected_dataset]
-        # )
-        # simulation_RES.set_model_param(
-        #     model_name='CSV_wind',
-        #     parameter='file_path',
-        #     value=wind_files[selected_dataset]
-        # )
-
-        # simulation_RES.set_scenario_param('start_time', times[selected_dataset]['start_time'])
-        # simulation_RES.set_scenario_param('end_time', times[selected_dataset]['end_time'])
-
         pv_number     = pv_size_slider.value
         pv_size_kW    = pv_number * 300  # W
         n_turbines    = n_t_slider.value * 100 # kW (small commercial wind turbine)
         storage_level = storage_slider.value
 
-        Turbines_on = n_turbines
+        # Turbines_on = n_turbines
 
         new_settings = {
 
