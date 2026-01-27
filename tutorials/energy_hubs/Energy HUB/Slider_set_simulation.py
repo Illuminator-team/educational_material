@@ -13,7 +13,7 @@ def run_res_simulation(dashboard):
     storage_slider  = dashboard["storage_slider"]
     p_rated_turbine = dashboard["p_rated_turbine"]
 
-    CONFIG_FILE = 'data\Tutorial_5.yaml'
+    CONFIG_FILE = 'data\Tutorial_5_Green.yaml'
     simulation_RES = Simulation(CONFIG_FILE)
 
     def apply_ui_to_simulation():
