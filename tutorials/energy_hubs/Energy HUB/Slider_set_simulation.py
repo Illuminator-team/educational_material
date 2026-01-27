@@ -16,9 +16,6 @@ def run_res_simulation(dashboard):
     CONFIG_FILE = 'data\Tutorial_5.yaml'
     simulation_RES = Simulation(CONFIG_FILE)
 
-    # def int_to_vector(n, length=10):
-    #     return [1]*n + [0]*(length-n)
-
     def apply_ui_to_simulation():
         selected_dataset = dropdown.value
         pv_number     = pv_size_slider.value
@@ -56,7 +53,6 @@ def run_res_simulation(dashboard):
         return new_settings
 
     new_settings = apply_ui_to_simulation()
-    # simulation_RES.edit_models(new_settings)
 
     csvload_model = [m for m in simulation_RES.config['models'] if m['name'] == 'CSVload'][0]
     path = csvload_model['parameters']['file_path']
@@ -67,7 +63,5 @@ def run_res_simulation(dashboard):
     print("Columns as seen by pandas:")
     for c in df_load.columns:
         print("  ", repr(c))
-
-    # simulation_RES.run()
 
     return simulation_RES, new_settings, df_load
