@@ -37,8 +37,8 @@ def run_energy_dashboard():
 
 
     # Constants
-    p_rated_turbine = 2000  # kW per wind turbine
-    pv_capacity_per_panel = 0.5  # kW per PV panel
+    p_rated_turbine = 100  # kW per wind turbine (small commercial turbine)
+    pv_capacity_per_panel = 0.3  # kW per PV panel
 
     # Internal state variables
     current_df_day = None
