@@ -13,7 +13,7 @@ def run_res_simulation(dashboard):
     storage_slider  = dashboard["storage_slider"]
     p_rated_turbine = dashboard["p_rated_turbine"]
 
-    CONFIG_FILE = 'data\Tutorial_physical_congestion_RES_bat.yaml'
+    CONFIG_FILE = 'data\Tutorial_5.yaml'
     simulation_RES = Simulation(CONFIG_FILE)
 
     # load_files = {
@@ -68,8 +68,8 @@ def run_res_simulation(dashboard):
         # simulation_RES.set_scenario_param('end_time', times[selected_dataset]['end_time'])
 
         pv_number     = pv_size_slider.value
-        pv_size_kW    = pv_number * 0.5  # kW
-        n_turbines    = n_t_slider.value * 2000 # kW
+        pv_size_kW    = pv_number * 300  # W
+        n_turbines    = n_t_slider.value * 100 # kW (small commercial wind turbine)
         storage_level = storage_slider.value
 
         Turbines_on = n_turbines
@@ -80,7 +80,7 @@ def run_res_simulation(dashboard):
             'PV1':     {'cap': pv_size_kW},
             'Battery1': {
                 'max_p':      storage_level*0.1,
-                'min_p':      storage_level*0.1,
+                'min_p':      storage_level* -0.1,
                 'max_energy': storage_level
             },
             'Controller1': {
