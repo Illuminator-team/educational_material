@@ -5,12 +5,12 @@ from datetime import datetime, timedelta
 import os
 
 def calculate_electricity_cost(
-    price_file,
-    consumption_file,
+    price_file='data\GUI_ENERGY_PRICES_202511272300-202511282300.csv',
+    consumption_file='out_Tutorial_5.csv',
     consumption_column='Controller1.dump',
     consumption_date_column='date',
     price_date_column='MTU (CET/CEST)',
-    price_column='Price (EUR/MWh)',
+    price_column='Day-ahead Price (EUR/MWh)',
     # Optional renewable generation parameters
     pv_output_file=None,
     pv_column=None,

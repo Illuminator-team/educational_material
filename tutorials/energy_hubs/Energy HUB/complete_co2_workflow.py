@@ -4,12 +4,13 @@ import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 
 def align_dates_and_calculate_co2(
-    generation_file,
-    consumption_file,
+    generation_file = 'data\GENERATION_PER_TYPE_20251125-20251202.csv',
+    consumption_file='out_Tutorial_5.csv',
     consumption_column='Controller1.dump',
     consumption_date_column='date',
     generation_date_column='MTU (CET/CEST)',
     output_csv='./co2_results.csv'
+
 ):
     """
     Complete workflow: align generation file dates to consumption file, calculate CO2, and plot.
