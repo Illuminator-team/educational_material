@@ -61,7 +61,7 @@ models:
     peak_power: 60  # W
     m_tilt: 14  # degrees
     m_az: 180  # degrees
-    cap: 20000  # W
+    cap: 0  # W
     output_type: 'power'
   inputs: 
     G_Gh: null 
@@ -78,7 +78,7 @@ models:
 - name: Wind1
   type: Wind # models can reuse the same type
   parameters:
-    p_rated: 10  # Rated power output (kW) of the wind turbine at the rated wind speed and above.
+    p_rated: 0  # Rated power output (kW) of the wind turbine at the rated wind speed and above.
     u_rated: 10  # Rated wind speed (m/s) where the wind turbine reaches its maximum power output.
     u_cutin: 2.8  # Cut-in wind speed (m/s) below which the wind turbine does not generate power.
     u_cutout: 25  # Cut-out wind speed (m/s) above which the wind turbine stops generating power to prevent damage.
@@ -120,7 +120,7 @@ models:
     soc_max: 90  # Maximum state of charge of the battery before charging stops
     max_p: 40  # Maximum power flow to/from the battery (kW)
     gridconnect_ctrl: 15 # kW grid connection capacity
-    battery_active: True
+    battery_active: False
     elec_assets: False
     load_shift_active: False # indicates whether the controller should actively shift the load based on flag warning
   inputs:
