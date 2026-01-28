@@ -1,5 +1,5 @@
 scenario:
-  name: "Tutorial 3" # in mosaik so called world
+  name: "Tutorial 5 Green" # in mosaik so called world
   start_time: '2012-07-06 00:00:00' # ISO 8601 start time of the simulation
   end_time: '2012-07-06 23:45:00' # duration in seconds 
   time_resolution: 900 # time step in seconds (optional). Defaults to 15 minutes (900 s)
@@ -79,7 +79,7 @@ models:
   type: Wind # models can reuse the same type
   parameters:
     p_rated: 10  # Rated power output (kW) of the wind turbine at the rated wind speed and above.
-    u_rated: 9.3  # Rated wind speed (m/s) where the wind turbine reaches its maximum power output.
+    u_rated: 10  # Rated wind speed (m/s) where the wind turbine reaches its maximum power output.
     u_cutin: 2.8  # Cut-in wind speed (m/s) below which the wind turbine does not generate power.
     u_cutout: 25  # Cut-out wind speed (m/s) above which the wind turbine stops generating power to prevent damage.
     cp: 0.40  # Coefficient of performance of the wind turbine, typically around 0.40 and never more than 0.59.
