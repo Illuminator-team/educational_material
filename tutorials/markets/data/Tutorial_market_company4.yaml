@@ -14,12 +14,12 @@ models:
     bids_manual: null
   inputs:
     portfolio: [
-        {'Technology': 'Oil', 'Capacity (MW)': 300, 'Cost (€/MWh)': 104, 'Availability': 1},
-        {'Technology': 'Nuclear', 'Capacity (MW)': 700, 'Cost (€/MWh)': 70, 'Availability': 1},
-        {'Technology': 'Gas (CCGT)', 'Capacity (MW)': 400, 'Cost (€/MWh)': 85, 'Availability': 1},
-        {'Technology': 'Gas (OCGT)', 'Capacity (MW)': 200, 'Cost (€/MWh)': 75, 'Availability': 1},
-        {'Technology' : 'Wind', 'Capacity (MW)': 180, 'Cost (€/MWh)': 53, 'Availability': 0.55},
-        {'Technology' : 'Solar', 'Capacity (MW)': 100, 'Cost (€/MWh)': 40, 'Availability': 0.34}
+        {'Technology': 'Oil', 'Capacity (MW)': 300, 'Cost (€/MWh)': 200, 'Availability': 1},
+        {'Technology': 'Nuclear', 'Capacity (MW)': 700, 'Cost (€/MWh)': 10, 'Availability': 1},
+        {'Technology': 'Gas (CCGT)', 'Capacity (MW)': 400, 'Cost (€/MWh)': 95, 'Availability': 1},
+        {'Technology': 'Gas (OCGT)', 'Capacity (MW)': 200, 'Cost (€/MWh)': 130, 'Availability': 1},
+        {'Technology' : 'Wind', 'Capacity (MW)': 180, 'Cost (€/MWh)': 0, 'Availability': 0.55},
+        {'Technology' : 'Solar', 'Capacity (MW)': 100, 'Cost (€/MWh)': 0, 'Availability': 0.34}
     ]
   states:
     bids: null
@@ -33,12 +33,12 @@ models:
     bids_manual: null    
   inputs:
     portfolio: [
-        {'Technology': 'Coal', 'Capacity (MW)': 600, 'Cost (€/MWh)': 92, 'Availability': 1},
-        {'Technology': 'Gas (CCGT)', 'Capacity (MW)': 500, 'Cost (€/MWh)': 82, 'Availability': 1},
-        {'Technology': 'Gas (OCGT)', 'Capacity (MW)': 150, 'Cost (€/MWh)': 70, 'Availability': 1},
-        {'Technology': 'Hydro', 'Capacity (MW)': 150, 'Cost (€/MWh)': 75, 'Availability': 1},
-        {'Technology' : 'Wind', 'Capacity (MW)': 250, 'Cost (€/MWh)': 55, 'Availability': 0.55},
-        {'Technology' : 'Solar', 'Capacity (MW)': 180, 'Cost (€/MWh)': 42, 'Availability': 0.34}
+        {'Technology': 'Coal', 'Capacity (MW)': 600, 'Cost (€/MWh)': 75, 'Availability': 1},
+        {'Technology': 'Gas (CCGT)', 'Capacity (MW)': 500, 'Cost (€/MWh)': 90, 'Availability': 1},
+        {'Technology': 'Gas (OCGT)', 'Capacity (MW)': 150, 'Cost (€/MWh)': 125, 'Availability': 1},
+        {'Technology': 'Hydro', 'Capacity (MW)': 150, 'Cost (€/MWh)': 0, 'Availability': 1},
+        {'Technology' : 'Wind', 'Capacity (MW)': 250, 'Cost (€/MWh)': 0, 'Availability': 0.55},
+        {'Technology' : 'Solar', 'Capacity (MW)': 180, 'Cost (€/MWh)': 0, 'Availability': 0.34}
     ]
   states:
     bids: null
@@ -52,12 +52,12 @@ models:
     bids_manual: null
   inputs:
     portfolio: [
-        {'Technology': 'Coal', 'Capacity (MW)': 550, 'Cost (€/MWh)': 90, 'Availability': 1},
-        {'Technology': 'Gas (CCGT)', 'Capacity (MW)': 550, 'Cost (€/MWh)': 80, 'Availability': 1},
-        {'Technology': 'Gas (OCGT)', 'Capacity (MW)': 200, 'Cost (€/MWh)': 76, 'Availability': 1},
-        {'Technology': 'Hydro','Capacity (MW)': 100, 'Cost (€/MWh)': 78, 'Availability': 1},
-        {'Technology' : 'Wind', 'Capacity (MW)': 200, 'Cost (€/MWh)': 52, 'Availability': 0.55},
-        {'Technology' : 'Solar', 'Capacity (MW)': 175, 'Cost (€/MWh)': 45, 'Availability': 0.34}
+        {'Technology': 'Coal', 'Capacity (MW)': 550, 'Cost (€/MWh)': 70, 'Availability': 1},
+        {'Technology': 'Gas (CCGT)', 'Capacity (MW)': 550, 'Cost (€/MWh)': 85, 'Availability': 1},
+        {'Technology': 'Gas (OCGT)', 'Capacity (MW)': 200, 'Cost (€/MWh)': 120, 'Availability': 1},
+        {'Technology': 'Hydro','Capacity (MW)': 100, 'Cost (€/MWh)': 0, 'Availability': 1},
+        {'Technology' : 'Wind', 'Capacity (MW)': 200, 'Cost (€/MWh)': 0, 'Availability': 0.55},
+        {'Technology' : 'Solar', 'Capacity (MW)': 175, 'Cost (€/MWh)': 0, 'Availability': 0.34}
     ]
   states:
     bids: null
@@ -70,20 +70,20 @@ models:
     automated_bids: False
     bids_manual: [
   {'Bid Capacity (MW)': 100, 'Bid Price (€/MWh)': 200}, # Bid for your oil power plant
-  {'Bid Capacity (MW)': 900, 'Bid Price (€/MWh)': 50}, # Bid for your coal power plant
-  {'Bid Capacity (MW)': 300, 'Bid Price (€/MWh)': 70}, # Bid for your gas (CCGT) power plant
-  {'Bid Capacity (MW)': 400, 'Bid Price (€/MWh)': 100}, # Bid for your gas (OCGT) power plant
-  {'Bid Capacity (MW)': 200, 'Bid Price (€/MWh)': 50}, # Bid for your wind power plant
-  {'Bid Capacity (MW)': 200, 'Bid Price (€/MWh)': 50} # Bid for your solar power plant
+  {'Bid Capacity (MW)': 900, 'Bid Price (€/MWh)': 70}, # Bid for your coal power plant
+  {'Bid Capacity (MW)': 300, 'Bid Price (€/MWh)': 95}, # Bid for your gas (CCGT) power plant
+  {'Bid Capacity (MW)': 400, 'Bid Price (€/MWh)':125}, # Bid for your gas (OCGT) power plant
+  {'Bid Capacity (MW)': 200, 'Bid Price (€/MWh)': 0}, # Bid for your wind power plant
+  {'Bid Capacity (MW)': 200, 'Bid Price (€/MWh)': 0} # Bid for your solar power plant
   ]
   inputs:
     portfolio: [
-        {'Technology': 'Oil', 'Capacity (MW)': 100, 'Cost (€/MWh)': 110, 'Availability': 1},
-        {'Technology': 'Coal', 'Capacity (MW)': 600, 'Cost (€/MWh)': 91, 'Availability': 1},
-        {'Technology': 'Gas (CCGT)', 'Capacity (MW)': 300, 'Cost (€/MWh)': 87, 'Availability': 1},
-        {'Technology': 'Gas (OCGT)', 'Capacity (MW)': 400, 'Cost (€/MWh)': 74, 'Availability': 1},
-        {'Technology' : 'Wind', 'Capacity (MW)': 250, 'Cost (€/MWh)': 56, 'Availability': 0.55},
-        {'Technology' : 'Solar', 'Capacity (MW)': 100, 'Cost (€/MWh)': 38, 'Availability': 0.34}
+        {'Technology': 'Oil', 'Capacity (MW)': 100, 'Cost (€/MWh)': 200, 'Availability': 1},
+        {'Technology': 'Coal', 'Capacity (MW)': 600, 'Cost (€/MWh)': 70, 'Availability': 1},
+        {'Technology': 'Gas (CCGT)', 'Capacity (MW)': 300, 'Cost (€/MWh)': 95, 'Availability': 1},
+        {'Technology': 'Gas (OCGT)', 'Capacity (MW)': 400, 'Cost (€/MWh)': 125, 'Availability': 1},
+        {'Technology' : 'Wind', 'Capacity (MW)': 250, 'Cost (€/MWh)': 0, 'Availability': 0.55},
+        {'Technology' : 'Solar', 'Capacity (MW)': 100, 'Cost (€/MWh)': 0, 'Availability': 0.34}
     ]
   states:
     bids: null
