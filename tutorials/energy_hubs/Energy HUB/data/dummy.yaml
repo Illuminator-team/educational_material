@@ -1,0 +1,59 @@
+scenario:
+  name: "New House Type Test"
+  start_time: '2026-01-01 00:00:00'
+  end_time: '2026-01-01 05:00:00' # 20 steps * 15 mins = 5 hours
+  time_resolution: 900 
+
+models:
+  - name: CSV_Input_Provider
+    type: CSV
+    parameters:
+      file_path: 'data/dummy.csv'
+      delimiter: ';'
+      date_format: 'YYYY-MM-DD HH:mm:ss'
+      send_row: True  # Bypasses float conversion
+
+  - name: Neighborhood_A
+    type: New_House_Type
+    parameters:
+      houses: 5
+      # 5 houses, each with unique incentive priorities (Eco, Socio, Financial)
+      incentive_weights: [
+        [0.8, 0.1, 0.1], # House 0: Eco-warrior
+        [0.1, 0.8, 0.1], # House 1: Socially driven
+        [0.1, 0.1, 0.8], # House 2: Financially driven
+        [0.33, 0.33, 0.34], # House 3: Balanced
+        [0.5, 0.0, 0.5]  # House 4: Eco-Financial
+      ]
+      input_type: 'energy'
+      output_type: 'power'
+      standard_production: 1.0
+    inputs:
+      load: 0
+      actions: []
+    outputs:
+      sum_load_dem:
+      sum_consumption:
+      sum_production:
+      consumption:
+      production:
+
+connections:
+  # Feed the CSV data into our new model
+  - from: CSV_Input_Provider.row
+    to: Neighborhood_A.row  # Feed the whole row to the house model
+
+  # - from: CSV_Input_Provider.load
+  #   to: Neighborhood_A.load
+    
+  # - from: CSV_Input_Provider.actions
+  #   to: Neighborhood_A.actions
+
+monitor:
+  file: './out_new_house_test.csv'
+  items:
+    - Neighborhood_A.sum_load_dem
+    - Neighborhood_A.sum_consumption
+    - Neighborhood_A.sum_production
+    - Neighborhood_A.consumption
+    - Neighborhood_A.production
