@@ -1,0 +1,79 @@
+scenario:
+  name: "Energy Justice Closed Loop Test"
+  start_time: '2012-07-06 00:00:00' # ISO 8601 start time of the simulation
+  end_time: '2012-07-06 23:45:00' # duration in seconds 
+  time_resolution: 900 
+
+models:
+  - name: Justice_Controller
+    type: JusticeAgentController
+    parameters:
+      houses: 5
+      alpha: 0.1
+      beta: 0.1
+    inputs:
+      consumption: [1, 0, 0, 0, 0]
+      production: [0, 0, 0, 0, 0]
+    outputs:
+      recommendations:
+      usage_rate:
+      reciprocity_index:
+
+  - name: Neighborhood_A
+    type: New_House_Type
+    parameters:
+      houses: 5
+      # Static base values (kWh or Power)
+      consumption: [12.5, 1.2, 9.8, 0.5, 2.0] 
+      production: [0.8, 2.5, 3.0, 1.5, 0.5]
+      # Sensitivities: How much they actually change behavior based on advice
+      alphas: [0.1, 0.5, 0.2, 0.8, 0.3] # Consumption sensitivity
+      betas: [0.05, 0.2, 0.1, 0.4, 0.1] # Production sensitivity
+      decision_threshold: 0.5
+      incentive_weights: [
+        [0.1, 0.1, 0.8],
+        [0.1, 0.8, 0.1],
+        [0.8, 0.1, 0.1],
+        [0.33, 0.33, 0.34],
+        [0.5, 0.0, 0.5]
+      ]
+      input_type: 'energy'
+      output_type: 'power'
+      standard_production: 1.0
+    inputs:
+      load: 10 # Will be overwritten by CSV connection
+      recommendations: []
+    outputs:
+      sum_load_dem:
+      sum_consumption:
+      sum_production:
+      consumption:
+      production:
+
+connections:
+  # Feed the specific load value from the CSV to the houses
+  # - from: CSVload.load
+  #   to: Neighborhood_A.load
+
+  # Feedback Loop: Neighborhood -> Controller -> Neighborhood
+  - from: Neighborhood_A.consumption
+    to: Justice_Controller.consumption
+    
+  - from: Neighborhood_A.production
+    to: Justice_Controller.production
+
+  - from: Justice_Controller.recommendations
+    to: Neighborhood_A.recommendations
+    time_shifted: True
+
+monitor:
+  file: './out_justice_test.csv'
+  items:
+    - Justice_Controller.usage_rate
+    - Justice_Controller.reciprocity_index
+    - Justice_Controller.recommendations
+    - Neighborhood_A.consumption
+    - Neighborhood_A.production
+    # - Neighborhood_A.sum_load_dem
+    - Neighborhood_A.sum_consumption
+    - Neighborhood_A.sum_production
