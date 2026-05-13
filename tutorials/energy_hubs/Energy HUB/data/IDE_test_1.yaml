@@ -1,0 +1,78 @@
+scenario:
+  name: "Energy Justice Closed Loop Test"
+  start_time: '2012-07-06 00:00:00'
+  end_time: '2012-07-06 23:45:00'
+  time_resolution: 900 
+
+models:
+  - name: Justice_Controller
+    type: JusticeAgentController1
+    parameters:
+      houses: 5
+      # Flowchart Thresholds
+      sufficiency_floor: 5.0
+      sufficiency_ceiling: 15.0
+      capability_threshold: 0.5 # tau for mismatch monitoring
+    inputs:
+      consumption: []
+      production: []
+      response: [] # Input from households to monitor capability
+    outputs:
+      recommendations:
+      hub_state: # Scarcity, Inequality, Extravagance, or Sufficiency
+      usage_rate:
+
+  - name: Neighborhood_A
+    type: House_Type_1
+    parameters:
+      houses: 5
+      consumption: [12.5, 1.2, 9.8, 30.5, 2.0] 
+      production: [0.8, 2.5, 3.0, 1.5, 0.5]
+      alphas: [0.1, 0.5, 0.2, 0.8, 0.3] 
+      betas: [0.05, 0.2, 0.1, 0.4, 0.1] 
+      decision_threshold: 0.5
+      incentive_weights: [
+        [0.1, 0.1, 0.8],
+        [0.1, 0.8, 0.1],
+        [0.8, 0.1, 0.1],
+        [0.33, 0.33, 0.34],
+        [0.5, 0.0, 0.5]
+      ]
+    inputs:
+      recommendations: []
+    outputs:
+      sum_load_dem:
+      sum_consumption:
+      sum_production:
+      consumption:
+      production:
+      response: # Tracks [accepted_count, total_assigned] per house
+
+connections:
+  # State Feedback
+  - from: Neighborhood_A.consumption
+    to: Justice_Controller.consumption
+    
+  - from: Neighborhood_A.production
+    to: Justice_Controller.production
+
+  # System Checker / Capability Monitoring
+  - from: Neighborhood_A.response
+    to: Justice_Controller.response
+
+  # Control Loop
+  - from: Justice_Controller.recommendations
+    to: Neighborhood_A.recommendations
+    time_shifted: True
+
+monitor:
+  file: './out_justice_test_1.csv'
+  items:
+    - Justice_Controller.hub_state
+    - Justice_Controller.usage_rate
+    - Justice_Controller.recommendations
+    - Neighborhood_A.consumption
+    - Neighborhood_A.production
+    - Neighborhood_A.response
+    - Neighborhood_A.sum_consumption
+    - Neighborhood_A.sum_production
