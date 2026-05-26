@@ -149,6 +149,7 @@ def compare_output_files(
                 f"  expected:  {df_expected.loc[max_idx, col]}\n"
                 f"  date:      {df_actual.loc[max_idx, 'date'] if 'date' in df_actual.columns else 'n/a'}\n"
                 f"  first bad rows:\n{bad_rows}"
+            )
 
 
 def ignore_cache_dirs(dir, files):
