@@ -10,7 +10,7 @@ dependencies:
   - pandas>=3.0.3
   - numpy
   - pip:
-    - git+https://github.com/YOUR_ORG/illuminator.git@259#egg=illuminator
+    - git+https://github.com/Illuminator-team/Illuminator.git@259#egg=illuminator
     - jupyterlab
     # For testing
     - pytest
