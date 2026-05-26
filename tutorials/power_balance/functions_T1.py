@@ -134,7 +134,7 @@ def summarize_results(outputfile, battery_active):
 def plot_soc(outputfile, soc_min= 10, soc_max= 90):
     fig, ax = plt.subplots(figsize=(10, 6))
     result_pd_df = pd.read_csv(outputfile, index_col=0)
-    result_pd_df.index = pd.to_datetime(result_pd_df.index, , format="mixed")
+    result_pd_df.index = pd.to_datetime(result_pd_df.index, format="mixed")
     ax.plot(result_pd_df.index, result_pd_df['Battery1.soc'],
             color='mediumslateblue', linestyle='-', marker='o', markersize=4, linewidth=2)
     ax.hlines(y=soc_min, xmin=min(result_pd_df.index), xmax=max(result_pd_df.index), color='grey', linestyles='--', label = 'Minimum')
