@@ -83,7 +83,7 @@ def summarize_results(outputfile, battery_active):
     # table with averages and sums for each hour
     # SOC is value after every hour, rest is sum
 
-    results_hourly = result_pd_df.resample('H').sum()
+    results_hourly = result_pd_df.resample('h').sum()
 
     results_hourly = results_hourly.rename(columns={'Controller1.res_load': 'Residual Load (kW)',
                                                     'Controller1.dump': 'Power to Grid (kW)',
