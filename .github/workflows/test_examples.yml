@@ -19,7 +19,7 @@ jobs:
         with:
           auto-activate-base: false
           # optional: specify Python version for conda itself
-          python-version: 3.11
+          python-version: 3.14
 
       # Remove environment if it exists
       - name: Remove old conda environment
