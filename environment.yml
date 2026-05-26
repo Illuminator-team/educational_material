@@ -7,7 +7,7 @@ dependencies:
   - pip
   - libxml2
   - libxslt
-  - pandas
+  - pandas>=3.0.3
   - numpy
   - pip:
     - illuminator
