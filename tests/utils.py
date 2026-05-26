@@ -133,12 +133,22 @@ def compare_output_files(
     # Compare the float columns with tolerance
     for col in float_columns:
         assert col in df_actual.columns, f"{actual.name}: Missing column '{col}'"
-        assert np.allclose(
-            df_actual[col],
-            df_expected[col],
-            rtol=0,
-            atol=tolerance
-        ), f"{actual.name}: Float values in '{col}' differ beyond tolerance"
+    
+        diff = (df_actual[col] - df_expected[col]).abs()
+        max_idx = diff.idxmax()
+    
+        if not np.allclose(df_actual[col], df_expected[col], rtol=0, atol=tolerance):
+            bad_rows = diff[diff > tolerance].head(5)
+    
+            raise AssertionError(
+                f"{actual.name}: Float values in '{col}' differ beyond tolerance\n"
+                f"  tolerance: {tolerance}\n"
+                f"  max diff:  {diff.max()}\n"
+                f"  row index: {max_idx}\n"
+                f"  actual:    {df_actual.loc[max_idx, col]}\n"
+                f"  expected:  {df_expected.loc[max_idx, col]}\n"
+                f"  date:      {df_actual.loc[max_idx, 'date'] if 'date' in df_actual.columns else 'n/a'}\n"
+                f"  first bad rows:\n{bad_rows}"
 
 
 def ignore_cache_dirs(dir, files):
