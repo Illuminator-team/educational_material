@@ -5,6 +5,8 @@ channels:
 dependencies:
   - python=3.14
   - pip
+  - libxml2
+  - libxslt
   - pip:
     - illuminator
     - jupyterlab
