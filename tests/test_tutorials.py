@@ -18,7 +18,6 @@ def test_physical_congestion(tmp_path: Path):
     - Numerical equality (within a tolerance) for 'Controller1.dump'
     """
     # Copy entire tutorial directory (including data folder) into tmp_path/physical_congestion
-    print("jort tmp test")
     tutorial_dir = Path("tutorials/physical_congestion")
     running_dir = tmp_path / "physical_congestion"
     shutil.copytree(tutorial_dir, running_dir, ignore=ignore_cache_dirs)
