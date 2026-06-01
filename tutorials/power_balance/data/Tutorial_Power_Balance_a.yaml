@@ -129,10 +129,6 @@ connections:
 - from: Load1.load_dem
   to: Controller1.load_dem
 
-  #use a random parameter to give an input for the 'u'
-- from: CSV_pv.Ta
-  to: DummyWind.u
-
 monitor:
   file: './out_Tutorial_Power_Balance_a.csv'
   items:
