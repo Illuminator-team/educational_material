@@ -23,7 +23,7 @@ models:
     type: New_House_Type
     parameters:
       houses: 5
-      # Static base values (kWh or Power)
+      # Static base values (kWh))
       consumption: [12.5, 1.2, 9.8, 0.5, 2.0] 
       production: [0.8, 2.5, 3.0, 1.5, 0.5]
       # Sensitivities: How much they actually change behavior based on advice
