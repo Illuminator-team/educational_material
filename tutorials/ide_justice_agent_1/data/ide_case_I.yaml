@@ -1,5 +1,5 @@
 scenario:
-  name: "Energy Justice Closed Loop Test"
+  name: "IDE Justice Agent Test Case I"
   start_time: '2012-01-01 00:00:00' # ISO 8601 start time of the simulation
   end_time: '2013-12-01 06:45:00' # ISO 8601 end time of the simulation (one year later)
   # time_resolution: 2592000 # one month in seconds lol
