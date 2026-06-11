@@ -338,14 +338,7 @@ class New_House_Type(ModelConstructor):
 def plot_neighborhood_energy(csv_path: str, neighborhood_prefix: str = 'Neighborhood_A') -> None:
     """
     Loads simulation data from a CSV, unpacks household list arrays, 
-    and generates aligned consumption and production subplots.
-    
-    Parameters:
-    -----------
-    csv_path : str
-        Path to the output CSV file (e.g., 'out_justice_test.csv')
-    neighborhood_prefix : str
-        The naming prefix of your neighborhood entity in the CSV (default: 'Neighborhood_A')
+    and generates aligned consumption and production subplots against sequential months.
     """
     # 1. Load the data
     df = pd.read_csv(csv_path)
@@ -362,12 +355,16 @@ def plot_neighborhood_energy(csv_path: str, neighborhood_prefix: str = 'Neighbor
     cons_expanded = pd.DataFrame(df[cons_col].tolist(), index=df.index)
     prod_expanded = pd.DataFrame(df[prod_col].tolist(), index=df.index)
 
+    # NEW: Create a clean numeric sequence for months starting at 1
+    months_seq = range(1, len(df) + 1)
+
     # 4. Plotting setup
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 10), sharex=True)
 
     # Plot Consumption
     for i in range(cons_expanded.shape[1]):
-        ax1.plot(df['date'], cons_expanded[i], marker='o', label=f'Household {i}')
+        # CHANGE: plotted against months_seq instead of df['date']
+        ax1.plot(months_seq, cons_expanded[i], marker='o', label=f'Household {i}')
 
     ax1.set_title(f'Household Consumption ({neighborhood_prefix})', fontsize=14)
     ax1.set_ylabel('Consumption (kWh)')
@@ -376,23 +373,36 @@ def plot_neighborhood_energy(csv_path: str, neighborhood_prefix: str = 'Neighbor
 
     # Plot Production
     for i in range(prod_expanded.shape[1]):
-        ax2.plot(df['date'], prod_expanded[i], marker='s', linestyle='--', label=f'Household {i}')
+        # CHANGE: plotted against months_seq instead of df['date']
+        ax2.plot(months_seq, prod_expanded[i], marker='s', linestyle='--', label=f'Household {i}')
 
     ax2.set_title(f'Household Production ({neighborhood_prefix})', fontsize=14)
     ax2.set_ylabel('Production (kWh)')
-    ax2.set_xlabel('Time')
+    
+    # CHANGE: Updated x-axis label to represent sequential months
+    ax2.set_xlabel('Months', fontsize=12) 
     ax2.legend(title="Households", loc='upper left', bbox_to_anchor=(1, 1))
     ax2.grid(True, linestyle='--', alpha=0.6)
 
-    # Improve x-axis readability
-    plt.xticks(rotation=45)
+    # CHANGE: Force matplotlib to only show integer steps on the x-axis
+    import matplotlib.ticker as ticker
+    ax2.xaxis.set_major_locator(ticker.MaxNLocator(integer=True))
+
+    # No rotation needed anymore since they are small numbers!
     plt.tight_layout()
     plt.show()
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import ast
+import matplotlib.ticker as ticker
+from collections import Counter
 
 def plot_justice_metrics(csv_path: str, controller_prefix: str = 'Justice_Controller') -> None:
     """
     Loads simulation data from a CSV, analyzes reciprocity trends, 
-    parses recommendation tuples, and displays a combined metric/distribution plot.
+    parses recommendation tuples, and displays a combined metric/distribution plot
+    against sequential month numbers.
     
     Parameters:
     -----------
@@ -403,7 +413,6 @@ def plot_justice_metrics(csv_path: str, controller_prefix: str = 'Justice_Contro
     """
     # 1. Load data
     df = pd.read_csv(csv_path)
-    df['date'] = pd.to_datetime(df['date'])
 
     # Reconstruct column names dynamically
     recs_col = f'{controller_prefix}.recommendations'
@@ -420,19 +429,28 @@ def plot_justice_metrics(csv_path: str, controller_prefix: str = 'Justice_Contro
 
     rec_counts = Counter(all_recommendations)
 
+    # NEW: Create a clean numeric sequence for months starting at 1
+    months_seq = range(1, len(df) + 1)
+
     # 3. Plotting Setup
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6), gridspec_kw={'width_ratios': [2, 1]})
 
     # --- Left Plot: Reciprocity Index ---
-    ax1.fill_between(df['date'], df[recip_col], color='skyblue', alpha=0.3)
-    ax1.plot(df['date'], df[recip_col], color='dodgerblue', lw=2, label='Reciprocity Index')
+    # CHANGE: plotted against months_seq instead of df['date']
+    ax1.fill_between(months_seq, df[recip_col], color='skyblue', alpha=0.3)
+    ax1.plot(months_seq, df[recip_col], color='dodgerblue', lw=2, label='Reciprocity Index')
 
     ax1.set_title(f'Justice Metric: Reciprocity Index Over Time ({controller_prefix})', fontsize=14, fontweight='bold')
     ax1.set_ylabel('Index Value')
-    ax1.set_xlabel('Time')
+    
+    # CHANGE: Updated x-axis label to generic Months
+    ax1.set_xlabel('Months', fontsize=12)
     ax1.set_ylim(0, 1.1) 
     ax1.grid(True, linestyle='--', alpha=0.5)
     ax1.legend()
+
+    # CHANGE: Force integer steps on the x-axis so you don't get decimal month markers
+    ax1.xaxis.set_major_locator(ticker.MaxNLocator(integer=True))
 
     # --- Right Plot: Recommendation Distribution ---
     actions = list(rec_counts.keys())
@@ -454,9 +472,7 @@ def plot_justice_metrics(csv_path: str, controller_prefix: str = 'Justice_Contro
     plt.show()
 
     # --- Console Summary Output ---
-    print(f"\n================ JUSTICE SIMULATION SUMMARY ================")
     print(f"Total Individual Recommendations Processed: {len(all_recommendations)}")
     print("Action Breakdown:")
     for action, count in rec_counts.items():
         print(f"  - {action}: {count}")
-    print(f"============================================================")
