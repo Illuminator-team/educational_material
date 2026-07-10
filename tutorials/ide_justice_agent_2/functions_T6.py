@@ -228,27 +228,33 @@ class JusticeAgentControllerCorridor(ModelConstructor):
 #######################
 #_  PLOT FUNCTIONS   _#
 #######################
-    
+
 def plot_neighborhood_energy(
-    csv_path: str, 
-    neighborhood_prefix: str = 'Neighborhood_A',
-    floor: float = 40,
-    ceiling: float = 140
+    csv_path: str,
+    floor: float,
+    ceiling: float,
+    neighborhood_prefix: str = 'Neighborhood_A'
 ) -> None:
     """
-    Loads simulation data from a CSV, unpacks household consumption arrays, 
+    Loads simulation data from a CSV, unpacks household consumption arrays,
     and plots household trends against the Sufficiency Corridor boundaries.
-    
-    Parameters:
-    -----------
+
+    floor and ceiling are required -- pass the exact sufficiency_floor /
+    sufficiency_ceiling values configured on JusticeAgentControllerCorridor
+    for this run (check wherever you instantiate that model in your scenario
+    setup). Defaulting these to arbitrary constants is what caused the
+    corridor to not line up with hub_state previously.
+
+    Parameters
+    ----------
     csv_path : str
         Path to the output CSV file
+    floor : float
+        The sufficiency floor threshold actually used in this simulation run
+    ceiling : float
+        The sufficiency ceiling threshold actually used in this simulation run
     neighborhood_prefix : str
         The naming prefix of your neighborhood entity in the CSV
-    floor : float
-        The sufficiency floor threshold (default from controller: 5.0)
-    ceiling : float
-        The sufficiency ceiling threshold (default from controller: 15.0)
     """
     # 1. Load the data
     df = pd.read_csv(csv_path)
@@ -269,9 +275,8 @@ def plot_neighborhood_energy(
     fig, ax = plt.subplots(figsize=(12, 7))
 
     # --- Visualise the Sufficiency Corridor Shading ---
-    # Shading the acceptable corridor zone
     ax.axhspan(floor, ceiling, color='green', alpha=0.10, label='Sufficiency Corridor Zone')
-    
+
     # Boundary threshold lines
     ax.axhline(ceiling, color='firebrick', linestyle='--', lw=1.5, alpha=0.8, label=f'Ceiling ({ceiling} kWh)')
     ax.axhline(floor, color='darkorange', linestyle='--', lw=1.5, alpha=0.8, label=f'Floor ({floor} kWh)')
@@ -283,10 +288,10 @@ def plot_neighborhood_energy(
     # Formatting text, titles, labels
     ax.set_title(f'Household Consumption vs. Sufficiency Corridor ({neighborhood_prefix})', fontsize=14, fontweight='bold')
     ax.set_ylabel('Consumption (kWh)', fontsize=12)
-    ax.set_xlabel('Months', fontsize=12) 
-    
+    ax.set_xlabel('Months', fontsize=12)
+
     # Pad y limits slightly outside thresholds to make sure visual spacing is clean
-    ax.set_ylim(min(floor * 0.5, cons_expanded.min().min() * 0.9), 
+    ax.set_ylim(min(floor * 0.5, cons_expanded.min().min() * 0.9),
                 max(ceiling * 1.2, cons_expanded.max().max() * 1.1))
 
     # Layout adjustment and grids
