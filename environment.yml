@@ -8,6 +8,7 @@ dependencies:
   - pip:
     - illuminator
     - jupyterlab
+    - nest-asyncio
     # For testing
     - pytest
     - nbclient
