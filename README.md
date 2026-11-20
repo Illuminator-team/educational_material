@@ -52,13 +52,13 @@ To run the Illuminator with one of the sample configurations:
 cd educational_material
 
 # Open a configuration folder, for example:
-cd configurations/tutorial4
+cd tutorials/residential
 
 # Activate the conda environment
 conda activate illuminator-examples
 
 # Run the Illuminator using a sample configuration 
-illuminator scenario run Tutorial4.yaml
+illuminator scenario run data/Tutorial4.yaml
 ```
 
 ### Scripts
